@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load cache %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    {% load staticfiles %}
+    {% block style_css %}<link rel="stylesheet" href="{% static 'style.css' %}" />{% endblock %}
+<title>{% block title %}Le blogue{% endblock %}</title>
+</head>
+<body>
+    <div id="heading"><h1>{% block heading %}Le blogue{% endblock %}</h1></div>
+ <div id="sidebar">
+    {% cache 500 sidebar %}
+    {% block sidebar %}
+    <ul>
+        <li><a href="{% url 'posts:posts' %}">Posts</a></li>
+        <li><a href="{% url 'posts:edit' %}">Add Posts</a></li>
+        <li><a href="/contacts/">Contacts</a></li>
+    </ul>
+     {% endblock %}
+     {% endcache %}
+ </div>
+ <div id="content">
+     {% block content %}{% endblock %}
+     {% comment %} Приминение тега комментария {% endcomment %}
+ </div>
+</body>
+</html>

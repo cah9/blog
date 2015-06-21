@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Add new post{% endblock %}
+{% block heading %}Add new post{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block content %}
+<form action="{% url 'posts:done' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Add new post">
+</form>
+{% endblock %}

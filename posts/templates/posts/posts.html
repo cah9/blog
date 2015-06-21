@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Posts{% endblock %}
+{% block heading %}Posts{% endblock %}
+{% block content %}
+{% for post in pag.object_list %}
+        <h2 {% if post.published = True %}style="color:green;"{% endif %}>{{ post.title|upper }}</h2>
+        <p>{{ post.content|lower|cut:"а"|linenumbers }}</p>
+    {% empty %}
+    <p>No posts yet</p>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if pag.has_previous %}
+            <a href="?page={{ pag.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ pag.number|center:"4" }} of {{ pag.paginator.num_pages|add:"1" }}
+        </span>
+
+        {% if pag.has_next %}
+            <a href="?page={{ pag.next_page_number }}">Next</a>
+        {% endif %}
+    </span>
+</div><br>
+
+{% endblock %}
